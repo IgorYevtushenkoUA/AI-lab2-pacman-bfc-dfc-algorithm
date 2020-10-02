@@ -1,8 +1,23 @@
-let c = 0;
-let w = "1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1"
-for(let i = 0 ; i< w.length ;i++){
-    if (w.charAt(i) === '0'){
-        c +=1
+class Vertex {
+    constructor(x, y, id) {
+        this.x = x
+        this.y = y
+        this.id = id
+    }
+
+    getX() {
+        return this.x
+    }
+
+    getY() {
+        return this.y
+    }
+
+    getID() {
+        return this.id
     }
 }
-console.log(c)
+
+let vertexes = [new Vertex(0,0,0)]
+
+console.log(vertexes[0].getID())

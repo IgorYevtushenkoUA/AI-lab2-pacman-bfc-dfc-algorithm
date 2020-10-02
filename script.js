@@ -33,5 +33,102 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     }
+
     drawMap()
+
+    class Vertex {
+        constructor(name, x, y, id) {
+            this._name = name
+            this._x = x
+            this._y = y
+            this._id = id
+        }
+
+        getName() {
+            return this._name
+        }
+
+        getX() {
+            return this._x
+        }
+
+        getY() {
+            return this._y
+        }
+
+        getID() {
+            return this._id
+        }
+    }
+
+    let vertexes = [
+        //A
+        new Vertex("A0" ,0 ,0 ,0),
+        new Vertex("A1" , 0,4 ,1),
+        new Vertex("A2" ,4,4,2),
+        new Vertex("A3" ,4,0,3),
+        new Vertex("A4" ,14,0,4),
+        new Vertex("A5" ,14,3,5),
+        new Vertex("A6" ,14,4,6),
+        new Vertex("A7" ,8,4,7),
+        new Vertex("A8" ,8,7,8),
+        new Vertex("A9" ,10,7,9),
+        //B
+        new Vertex("B1" ,30,0,11),
+        new Vertex("B2" ,30,3,12),
+        new Vertex("B3" ,22,3,13),
+        new Vertex("B4" ,22,11,14),
+        new Vertex("B5" ,19,11,15),
+        new Vertex("B6" ,16,11,16),
+        new Vertex("B7" ,14,11,17),
+        new Vertex("B8" ,5,11,18),
+        new Vertex("B9" ,4,11,19),
+        //C
+        new Vertex("C1" ,0,11,21),
+        new Vertex("C2" ,0,14,22),
+        new Vertex("C3" ,5,14,23),
+        new Vertex("C4" ,16,14,24),
+        new Vertex("C5" ,19,14,25),
+        new Vertex("C6" ,30,14,26),
+        new Vertex("C7" ,30,12,27),
+        new Vertex("C8" ,30,11,28),
+        new Vertex("C9" ,33,12,29),
+        //D
+        new Vertex("D0" ,33,14,30),
+        new Vertex("D1" ,36,14,31),
+        new Vertex("D2" ,.6,12,32),
+        new Vertex("D3" ,39,12,33),
+        new Vertex("D4" ,39,11,34),
+        new Vertex("D5" ,39,14,35),
+        new Vertex("D6" ,49,14,36),
+        new Vertex("D7" ,55,14,37),
+        new Vertex("D8" ,55,11,38),
+        new Vertex("D9" ,41,11,39),
+        //E
+        new Vertex("E0" ,43,0,40),
+        new Vertex("E1" ,49,11,41),
+        new Vertex("E2" ,43,11,42),
+        new Vertex("E3" ,43,3,43),
+        new Vertex("E4" ,51,3,44),
+        new Vertex("E5" ,51,8,45),
+        new Vertex("E6" ,55,3,46),
+        new Vertex("E7" ,55,0,47),
+        new Vertex("E8" ,49,0,48),
+        new Vertex("E9" ,49,3,49),
+        //F
+        new Vertex("F1" ,30,9,51),
+        new Vertex("F2" ,39,9,52),
+        new Vertex("F3" ,39,3,53),
+        new Vertex("F4" ,39,0,54),
+        new Vertex("F5" ,47,8,55),
+    ]
+
+
+    class DFS {
+    }
+
+    class BFS {
+    }
+
+
 })
