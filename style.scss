@@ -1,8 +1,8 @@
 .game {
   display: flex;
   flex-wrap: wrap;
-  width: 560px;
-  height: 560px;
+  width: 1160px;
+  height: 340px;
   border: solid black;
 }
 
@@ -12,11 +12,14 @@
 }
 
 .pac-dot {
-  background-color: green;
+  background-color: darkorange;
   border: 5px solid white;
   box-sizing: border-box;
+  border-radius: 10px;
 }
 
 .wall {
   background-color: blue;
 }
+
+
