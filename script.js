@@ -20,6 +20,11 @@ document.addEventListener('DOMContentLoaded', () => {
     ]
     const game = document.querySelector('.game')
     const squares = []
+    let packmanPosition = 0;
+    let objectPosition = 0;
+    const MULTIPLYING_COEFFICIENT = 20
+    const H = 17
+    const W = 58
 
     function drawMap() {
         for (let i = 0; i < pacmanMap.length; i++) {
@@ -64,8 +69,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let vertexes = [
         //A
         new Vertex("A0", 0, 0, 0),
-        new Vertex("A1", 0, 4, 1),
-        new Vertex("A2", 4, 4, 2),
+        new Vertex("A1", 0, 3, 1),
+        new Vertex("A2", 4, 3, 2),
         new Vertex("A3", 4, 0, 3),
         new Vertex("A4", 14, 0, 4),
         new Vertex("A5", 14, 3, 5),
@@ -124,15 +129,37 @@ document.addEventListener('DOMContentLoaded', () => {
     ]
 
     function generateRandomPosition() {
-        return Math.ceil(Math.random() * vertexes.length)
+        let randomVertex = Math.ceil(Math.random() * vertexes.length)
+        return randomVertex
     }
 
-    function tiePosition() {
-        let heroPosition = generateRandomPosition()
+    function setPackManPosition() {
+        packmanPosition = generateRandomPosition()
+        debugger
+    }
+
+    function setOBJECTPosition() {
         let randPos = generateRandomPosition()
-        while (randPos === heroPosition)
+        while (randPos === packmanPosition)
             randPos = generateRandomPosition()
-        let cherryPosition = randPos
+        objectPosition = randPos
+    }
+
+    function drawGameElements() {
+        setPackManPosition()
+        setOBJECTPosition()
+        let pacPos = (vertexes[packmanPosition].getX() + 1) + (vertexes[packmanPosition].getY() + 1) * W
+        let objPos = (vertexes[objectPosition].getX() + 1) + (vertexes[objectPosition].getY() + 1) * W
+
+        squares[pacPos].classList.add('pacman')
+        squares[objPos].classList.add('object')
+        console.log(`packmanPosition :: ${packmanPosition}`)
+        console.log(`Packman :: ${vertexes[packmanPosition]}`)
+        console.log(`(vertexes[packmanPosition].getX() + 1) + (vertexes[packmanPosition].getY() + 1) * W = '${(vertexes[packmanPosition].getX() + 1) + (vertexes[packmanPosition].getY() + 1) * W}'`)
+
+        console.log(`objectPosition :: ${objectPosition}`)
+        console.log(`objectPosition :: ${vertexes[objectPosition]}`)
+        console.log(`(vertexes[objectPosition].getX() + 1) + (vertexes[objectPosition].getY() + 1) * W = ${(vertexes[objectPosition].getX() + 1) + (vertexes[objectPosition].getY() + 1) * W}`)
     }
 
     generateRandomPosition()
@@ -220,6 +247,8 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
         console.log(findShortestDist_BFS(adj, source, dest, v))
     }
+
+    drawGameElements();
     main()
 
     function addEdge(adj, a, b) {

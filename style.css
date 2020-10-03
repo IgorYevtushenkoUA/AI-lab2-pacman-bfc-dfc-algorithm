@@ -13,13 +13,20 @@
 
 .pac-dot {
   background-color: darkorange;
-  border: 5px solid white;
   box-sizing: border-box;
   border-radius: 10px;
 }
 
 .wall {
-  background-color: blue;
+  background-color: cornflowerblue;
+}
+
+.pacman {
+  background-color: palegreen;
+}
+
+.object {
+  background-color: red;
 }
 
 /*# sourceMappingURL=style.css.map */
