@@ -1,3 +1,8 @@
+@import url(https://fonts.googleapis.com/css?family=Rubik+One&subset=latin,cyrillic);
+body {
+  background-color: #E4F1FB;
+}
+
 .game {
   display: flex;
   flex-wrap: wrap;
@@ -27,6 +32,64 @@
 
 .object {
   background-color: red;
+}
+
+.header {
+  position: relative;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 80px;
+}
+.header .article {
+  font-family: "Rubik One", sans-serif;
+  font-size: 50px;
+  text-transform: uppercase;
+  background: linear-gradient(45deg, #0B2349 33%, #0D61BC 66%, #8AA9D6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #0B2349;
+  display: table;
+  margin: 20px auto;
+}
+
+.menu-buttons .btn-random,
+.menu-buttons .btn-start,
+.menu-buttons .btn-statistics {
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+.menu-buttons .btn-random {
+  background-color: #f44336;
+}
+.menu-buttons .btn-start {
+  background-color: #4CAF50;
+}
+.menu-buttons .btn-statistics {
+  background-color: #008CBA;
+}
+.menu-buttons .btn-random:hover,
+.menu-buttons .btn-start:hover,
+.menu-buttons .btn-statistics:hover {
+  cursor: pointer;
+}
+
+.footer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 80px;
+}
+.footer .icon {
+  width: 100%;
+  height: 100%;
+  text-align: left;
 }
 
 /*# sourceMappingURL=style.css.map */

@@ -22,6 +22,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const squares = []
     let packmanPosition = 0;
     let objectPosition = 0;
+    let pacmanVertex = 0
+    let objVertex = 0
+
     const MULTIPLYING_COEFFICIENT = 20
     const H = 17
     const W = 58
@@ -129,12 +132,12 @@ document.addEventListener('DOMContentLoaded', () => {
     ]
 
     function generateRandomPosition() {
-        let randomVertex = Math.ceil(Math.random() * vertexes.length-1)
+        let randomVertex = Math.ceil(Math.random() * vertexes.length - 1)
         return randomVertex
     }
 
     function setPackManPosition() {
-        packmanPosition = generateRandomPosition()
+        pacmanVertex = generateRandomPosition()
         debugger
     }
 
@@ -142,25 +145,17 @@ document.addEventListener('DOMContentLoaded', () => {
         let randPos = generateRandomPosition()
         while (randPos === packmanPosition)
             randPos = generateRandomPosition()
-        objectPosition = randPos
+        objVertex = randPos
     }
 
     function drawGameElements() {
         setPackManPosition()
         setOBJECTPosition()
-        console.log('pacPos = ' + packmanPosition);
-        let pacPos = (vertexes[packmanPosition].getX() + 1) + (vertexes[packmanPosition].getY() + 1) * W
-        let objPos = (vertexes[objectPosition].getX() + 1) + (vertexes[objectPosition].getY() + 1) * W
+        packmanPosition = (vertexes[pacmanVertex].getX() + 1) + (vertexes[pacmanVertex].getY() + 1) * W
+        objectPosition = (vertexes[objVertex].getX() + 1) + (vertexes[objVertex].getY() + 1) * W
 
-        squares[pacPos].classList.add('pacman')
-        squares[objPos].classList.add('object')
-        console.log(`packmanPosition :: ${packmanPosition}`)
-        console.log(`Packman :: ${vertexes[packmanPosition]}`)
-        console.log(`(vertexes[packmanPosition].getX() + 1) + (vertexes[packmanPosition].getY() + 1) * W = '${(vertexes[packmanPosition].getX() + 1) + (vertexes[packmanPosition].getY() + 1) * W}'`)
-
-        console.log(`objectPosition :: ${objectPosition}`)
-        console.log(`objectPosition :: ${vertexes[objectPosition]}`)
-        console.log(`(vertexes[objectPosition].getX() + 1) + (vertexes[objectPosition].getY() + 1) * W = ${(vertexes[objectPosition].getX() + 1) + (vertexes[objectPosition].getY() + 1) * W}`)
+        squares[packmanPosition].classList.add('pacman')
+        squares[objectPosition].classList.add('object')
     }
 
     generateRandomPosition()
@@ -250,7 +245,46 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     drawGameElements();
-    main()
+
+    function sleep(miliseconds) {
+        let currentTime = new Date().getTime();
+
+        while (currentTime + miliseconds >= new Date().getTime()) {
+        }
+    }
+
+    // function animation () {
+    //     for (let i = 0 ; i < 10; i++){
+    //         packmanPosition += 10
+    //         sleep(100)
+    //         squares[packmanPosition].classList.add('pacman')
+    //     }
+    // }
+    //animation()
+
+    //move pacman
+    function movePacman(e) {
+        squares[packmanPosition].classList.remove('pacman')
+        switch (e.keyCode) {
+            case 37:
+                packmanPosition -= 1
+                break
+            case 38:
+                packmanPosition -= 58
+                break
+            case 39:
+                packmanPosition += 1
+                break
+            case 40:
+                packmanPosition += 58
+                break
+        }
+        squares[packmanPosition].classList.add('pacman')
+    }
+
+    document.addEventListener('keyup', movePacman)
+
+    // main()
 
     function addEdge(adj, a, b) {
         adj[a.getID()].push(b)
