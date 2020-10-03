@@ -38,8 +38,8 @@ body {
 
 #circle {
   background-color: deeppink;
-  width: 50px;
-  height: 50px;
+  width: 20px;
+  height: 20px;
   border-radius: 100px;
   position: absolute;
   top: 50px;
@@ -47,6 +47,7 @@ body {
 }
 
 
+// H E A D E R  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .header {
   position: relative;
@@ -99,7 +100,7 @@ body {
   }
 
 }
-
+//F O O T E R ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 .footer {
   position: absolute;
   left: 0;
@@ -114,7 +115,7 @@ body {
   }
 }
 
-
+//M O D A L    W I N D O W ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 .close {
   color: #aaaaaa;
   float: right;

@@ -24,6 +24,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let objectPosition = 0;
     let pacmanVertex = 0;
     let objVertex = 0;
+    let bfs_path = []
+    let dfs_path = []
 
     const H = 17
     const W = 58
@@ -243,37 +245,12 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(findDist_DFS(adj, source, dest));
         console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
         console.log(findShortestDist_BFS(adj, source, dest, v))
+        console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+        console.log(bfs_path)
+        console.log(dfs_path)
     }
+
     // drawGameElements();
-
-    function sleep(miliseconds) {
-        let currentTime = new Date().getTime();
-
-        while (currentTime + miliseconds >= new Date().getTime()) {
-        }
-    }
-
-    //move pacman
-    function movePacman(e) {
-        squares[packmanPosition].classList.remove('pacman')
-        switch (e.keyCode) {
-            case 37:
-                packmanPosition -= 1
-                break
-            case 38:
-                packmanPosition -= 58
-                break
-            case 39:
-                packmanPosition += 1
-                break
-            case 40:
-                packmanPosition += 58
-                break
-        }
-        squares[packmanPosition].classList.add('pacman')
-    }
-
-    document.addEventListener('keyup', movePacman)
 
     main()
 
@@ -299,8 +276,10 @@ document.addEventListener('DOMContentLoaded', () => {
         let answer = "Shorted path length is " + dist[dest]
         answer += "\n Path is :: "
 
-        for (let i = path.length - 1; i >= 0; i--)
+        for (let i = path.length - 1; i >= 0; i--) {
             answer += Object.values(path[i]) + " ~ "
+            bfs_path.push(path[i])
+        }
         return answer
     }
 
@@ -345,7 +324,8 @@ document.addEventListener('DOMContentLoaded', () => {
             prior[i] = -1
         }
         DFS_Algorithm(adj, source, final, source, prior, visited)
-        return getPath(source, final, prior);
+        dfs_path = getPath(source, final, prior)
+        return dfs_path
     }
 
     function DFS_Algorithm(adj, source, dist, from, prior, visited) {
@@ -376,22 +356,42 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-
-
+// BTN RANDOM
     document.getElementById("btn-random").addEventListener("click", function (e) {
         generateRandomPosition()
         drawGameElements()
     });
+
+    // BTN START
+    //todo moving packman
+    document.getElementById("btn-start").addEventListener("click", function (e) {
+        let elem = document.getElementById("circle")
+        let pos = packmanPosition
+        let id = setInterval(frame, 20)
+
+        function frame() {
+            if (pos == 350)
+                clearInterval()
+            else {
+                pos++
+                console.log(pos)
+                elem.style.top = pos + "px"
+            }
+        }
+    })
+
+    //BTN STATISTICS
     document.getElementById("btn-statistics").addEventListener("click", function (e) {
 
     })
     let modal = document.getElementById("modal-window")
     let btn = document.getElementById("btn-statistics")
 
-    btn.onclick = function() {
+    btn.onclick = function () {
         modal.style.display = "block";
     }
-    window.onclick = function(event) {
+
+    window.onclick = function (event) {
         if (event.target == modal) {
             modal.style.display = "none";
         }
