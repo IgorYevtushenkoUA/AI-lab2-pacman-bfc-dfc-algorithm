@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
         new Vertex("D9", 43, 11, 39),
         //E
         new Vertex("E0", 43, 3, 40),
-        new Vertex("E1", 43, 3, 41),
+        new Vertex("E1", 43, 0, 41),
         new Vertex("E2", 49, 0, 42),
         new Vertex("E3", 55, 0, 43),
         new Vertex("E4", 55, 3, 44),
@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ]
 
     function generateRandomPosition() {
-        let randomVertex = Math.ceil(Math.random() * vertexes.length)
+        let randomVertex = Math.ceil(Math.random() * vertexes.length-1)
         return randomVertex
     }
 
@@ -148,6 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function drawGameElements() {
         setPackManPosition()
         setOBJECTPosition()
+        console.log('pacPos = ' + packmanPosition);
         let pacPos = (vertexes[packmanPosition].getX() + 1) + (vertexes[packmanPosition].getY() + 1) * W
         let objPos = (vertexes[objectPosition].getX() + 1) + (vertexes[objectPosition].getY() + 1) * W
 
