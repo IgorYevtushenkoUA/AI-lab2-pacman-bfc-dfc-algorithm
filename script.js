@@ -63,65 +63,78 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let vertexes = [
         //A
-        new Vertex("A0" ,0 ,0 ,0),
-        new Vertex("A1" , 0,4 ,1),
-        new Vertex("A2" ,4,4,2),
-        new Vertex("A3" ,4,0,3),
-        new Vertex("A4" ,14,0,4),
-        new Vertex("A5" ,14,3,5),
-        new Vertex("A6" ,14,4,6),
-        new Vertex("A7" ,8,4,7),
-        new Vertex("A8" ,8,7,8),
-        new Vertex("A9" ,10,7,9),
+        new Vertex("A0" ,0 ,0 ,0),//0
+        new Vertex("A1" , 0,4 ,1),//1
+        new Vertex("A2" ,4,4,2),//2
+        new Vertex("A3" ,4,0,3),//3
+        new Vertex("A4" ,14,0,4),//4
+        new Vertex("A5" ,14,3,5),//5
+        new Vertex("A6" ,14,4,6),//6
+        new Vertex("A7" ,8,4,7),//7
+        new Vertex("A8" ,8,7,8),//8
+        new Vertex("A9" ,10,7,9),//9
         //B
-        new Vertex("B0" ,30,0,10),
-        new Vertex("B1" ,30,3,11),
-        new Vertex("B2" ,22,3,12),
-        new Vertex("B3" ,22,11,13),
-        new Vertex("B4" ,19,11,14),
-        new Vertex("B5" ,16,11,15),
-        new Vertex("B6" ,14,11,16),
-        new Vertex("B7" ,5,11,17),
-        new Vertex("B8" ,4,11,18),
-        new Vertex("B9" ,0,11,19),
+        new Vertex("B0" ,30,0,10),//10
+        new Vertex("B1" ,30,3,11),//11
+        new Vertex("B2" ,22,3,12),//12
+        new Vertex("B3" ,22,11,13),//13
+        new Vertex("B4" ,19,11,14),//14
+        new Vertex("B5" ,16,11,15),//15
+        new Vertex("B6" ,14,11,16),//16
+        new Vertex("B7" ,5,11,17),//17
+        new Vertex("B8" ,4,11,18),//18
+        new Vertex("B9" ,0,11,19),//19
         //C
-        new Vertex("C0" ,0,14,20),
-        new Vertex("C1" ,5,14,21),
-        new Vertex("C2" ,16,14,22),
-        new Vertex("C3" ,19,14,23),
-        new Vertex("C4" ,30,14,24),
-        new Vertex("C5" ,30,12,25),
-        new Vertex("C6" ,30,11,26),
-        new Vertex("C7" ,33,12,27),
-        new Vertex("C8" ,33,14,28),
-        new Vertex("C9" ,36,14,29),
+        new Vertex("C0" ,0,14,20),//20
+        new Vertex("C1" ,5,14,21),//21
+        new Vertex("C2" ,16,14,22),//22
+        new Vertex("C3" ,19,14,23),//23
+        new Vertex("C4" ,30,14,24),//24
+        new Vertex("C5" ,30,12,25),//25
+        new Vertex("C6" ,30,11,26),//26
+        new Vertex("C7" ,33,12,27),//27
+        new Vertex("C8" ,33,14,28),//28
+        new Vertex("C9" ,36,14,29),//29
         //D
-        new Vertex("D0" ,36,12,30),
-        new Vertex("D1" ,39,12,31),
-        new Vertex("D2" ,39,11,32),
-        new Vertex("D3" ,39,14,33),
-        new Vertex("D4" ,49,14,34),
-        new Vertex("D5" ,55,14,35),
-        new Vertex("D6" ,55,11,36),
-        new Vertex("D7" ,51,11,37),
-        new Vertex("D8" ,49,11,38),
-        new Vertex("D9" ,43,11,39),
+        new Vertex("D0" ,36,12,30),//30
+        new Vertex("D1" ,39,12,31),//31
+        new Vertex("D2" ,39,11,32),//32
+        new Vertex("D3" ,39,14,33),//33
+        new Vertex("D4" ,49,14,34),//34
+        new Vertex("D5" ,55,14,35),//35
+        new Vertex("D6" ,55,11,36),//36
+        new Vertex("D7" ,51,11,37),//37
+        new Vertex("D8" ,49,11,38),//38
+        new Vertex("D9" ,43,11,39),//39
         //E
-        new Vertex("E0" ,43,3,40),
-        new Vertex("E1" ,43,3,41),
-        new Vertex("E2" ,49,0,42),
-        new Vertex("E3" ,55,0,43),
-        new Vertex("E4" ,55,3,44),
-        new Vertex("E5" ,51,3,45),
-        new Vertex("E6" ,49,3,46),
-        new Vertex("E7" ,51,8,47),
-        new Vertex("E8" ,47,8,48),
-        new Vertex("E9" ,39,0,49),
+        new Vertex("E0" ,43,3,40),//40
+        new Vertex("E1" ,43,3,41),//41
+        new Vertex("E2" ,49,0,42),//42
+        new Vertex("E3" ,55,0,43),//43
+        new Vertex("E4" ,55,3,44),//44
+        new Vertex("E5" ,51,3,45),//45
+        new Vertex("E6" ,49,3,46),//46
+        new Vertex("E7" ,51,8,47),//47
+        new Vertex("E8" ,47,8,48),//48
+        new Vertex("E9" ,39,0,49),//49
         //F
-        new Vertex("F0" ,39,3,50),
-        new Vertex("F1" ,39,9,51),
-        new Vertex("F2" ,30,9,52),
+        new Vertex("F0" ,39,3,50),//50
+        new Vertex("F1" ,39,9,51),//51
+        new Vertex("F2" ,30,9,52),//52
     ]
+
+    let adj = []
+    for(let i = 0 ; i < vertexes.length;i++) adj.push([])
+
+    function addEdge (adj,a,b) {
+        adj[a].push(b)
+        adj[b].push(a)
+    }
+
+    function BFS_Algorithm(adj, edgeSource, edgeDistance, v, pred, dist){
+
+    }
+
 
 
     class DFS {
