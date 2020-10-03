@@ -10,19 +10,32 @@
 <header class="header"><h1 class="article">P.A.C.M.A.N =.=.=. パックマン</h1></header>
 <main>
     <div class="game">
-<!--        https://www.onlygfx.com/wp-content/uploads/2017/11/grunge-circle-frame-1-1024x982.png-->
+        <iv id="circle"></iv>
+        <!--        https://www.onlygfx.com/wp-content/uploads/2017/11/grunge-circle-frame-1-1024x982.png-->
     </div>
 </main>
 <div class="menu-buttons">
-    <button class="btn-random">Random generate positions</button>
+    <button class="btn-random" id="btn-random">Random generate positions</button>
     <button class="btn-start">Start</button>
-    <button class="btn-statistics">Show Statistics</button>
+    <button class="btn-statistics" id="btn-statistics">Show Statistics</button>
 </div>
 
 <footer class="footer">
     <a href="https://github.com/IgorYevtushenkoUA/AI-lab3-pacman-bfc-dfc-algorithm">
-        <img class="icon" src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Octicons-logo-github.svg" alt="github page" >
+        <img class="icon" src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Octicons-logo-github.svg"
+             alt="github page">
     </a>
 </footer>
+
+<div class="modal-window" id="modal-window">
+    <div class="statistics" id="statistics">
+        <div class="bfs-stat">
+            Statistics info block
+        </div>
+        <div class="dfs-stat"></div>
+    </div>
+</div>
+
+
 </body>
 </html>

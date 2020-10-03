@@ -22,10 +22,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const squares = []
     let packmanPosition = 0;
     let objectPosition = 0;
-    let pacmanVertex = 0
-    let objVertex = 0
+    let pacmanVertex = 0;
+    let objVertex = 0;
 
-    const MULTIPLYING_COEFFICIENT = 20
     const H = 17
     const W = 58
 
@@ -149,6 +148,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function drawGameElements() {
+        squares[packmanPosition].classList.remove('pacman')
+        squares[objectPosition].classList.remove('object')
         setPackManPosition()
         setOBJECTPosition()
         packmanPosition = (vertexes[pacmanVertex].getX() + 1) + (vertexes[pacmanVertex].getY() + 1) * W
@@ -158,7 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
         squares[objectPosition].classList.add('object')
     }
 
-    generateRandomPosition()
+    // generateRandomPosition()
 
     function main() {
         let adj = []
@@ -243,8 +244,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
         console.log(findShortestDist_BFS(adj, source, dest, v))
     }
-
-    drawGameElements();
+    // drawGameElements();
 
     function sleep(miliseconds) {
         let currentTime = new Date().getTime();
@@ -252,15 +252,6 @@ document.addEventListener('DOMContentLoaded', () => {
         while (currentTime + miliseconds >= new Date().getTime()) {
         }
     }
-
-    // function animation () {
-    //     for (let i = 0 ; i < 10; i++){
-    //         packmanPosition += 10
-    //         sleep(100)
-    //         squares[packmanPosition].classList.add('pacman')
-    //     }
-    // }
-    //animation()
 
     //move pacman
     function movePacman(e) {
@@ -284,7 +275,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.addEventListener('keyup', movePacman)
 
-    // main()
+    main()
 
     function addEdge(adj, a, b) {
         adj[a.getID()].push(b)
@@ -382,6 +373,28 @@ document.addEventListener('DOMContentLoaded', () => {
         ans.push(start)
         ans = ans.reverse()
         return ans
+    }
+
+
+
+
+    document.getElementById("btn-random").addEventListener("click", function (e) {
+        generateRandomPosition()
+        drawGameElements()
+    });
+    document.getElementById("btn-statistics").addEventListener("click", function (e) {
+
+    })
+    let modal = document.getElementById("modal-window")
+    let btn = document.getElementById("btn-statistics")
+
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
     }
 
 })
