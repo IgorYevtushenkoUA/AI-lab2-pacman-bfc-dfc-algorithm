@@ -85,6 +85,20 @@ let vertexes = [
     new Vertex("F2", 30, 9, 52),
 ]
 
+function generateRandomPosition() {
+    return Math.ceil(Math.random() * vertexes.length)
+}
+
+function tiePosition() {
+    let heroPosition = generateRandomPosition()
+    let randPos = generateRandomPosition()
+    while (randPos === heroPosition)
+        randPos = generateRandomPosition()
+    let cherryPosition = randPos
+}
+
+generateRandomPosition()
+
 function main() {
     let adj = []
     let v = 53
@@ -164,10 +178,10 @@ function main() {
 
     let source = vertexes[0]
     let dest = vertexes[45]
-    findDist_DFS(adj, source, dest)
-    // console.log(findShortestDist_BFS(adj, source, dest, v))
+    console.log(findDist_DFS(adj, source, dest));
+    console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+    console.log(findShortestDist_BFS(adj, source, dest, v))
 }
-
 main()
 
 function addEdge(adj, a, b) {
@@ -181,7 +195,6 @@ function findShortestDist_BFS(adj, s, dest, v) {
     if (BFS_Algorithm(adj, s, dest, v, pred, dist) === false) {
         return "can not find the path"
     }
-    console.log(pred)
     let path = []
     // ползать
     let crawl = dest
@@ -196,47 +209,6 @@ function findShortestDist_BFS(adj, s, dest, v) {
     for (let i = path.length - 1; i >= 0; i--)
         answer += Object.values(path[i]) + " ~ "
     return answer
-}
-
-function findDist_DFS(adj, source, final) {
-    let visited = []
-    let prior = []
-    for (let i = 0; i < 53; i++) {
-        visited[i] = false
-        prior[i] = -1
-    }
-    DFS_Algorithm(adj, source, final, source, prior, visited)
-    console.log(getPath(source, final, prior));
-
-}
-
-function DFS_Algorithm(adj, source, dist, from, prior, visited) {
-    if (visited[source.getID()] === true) {
-
-        return
-    }
-    visited[source.getID()] = true
-    prior[source.getID()] = from
-
-    if (source === dist) {
-        console.log("Find Path");
-        console.log(prior)
-        return
-    }
-    for (let i = 0; i < adj[source.getID()].length; i++) {
-        DFS_Algorithm(adj, adj[source.getID()][i], dist, source, prior, visited)
-    }
-}
-
-function getPath(start, finish, prior) {
-    let ans = []
-
-    for (let v = finish; v != start; v = prior[v.getID()]) {
-        ans.push(v)
-    }
-    ans.push(start)
-    ans = ans.reverse()
-    return ans
 }
 
 function BFS_Algorithm(adj, edgeSource, edgeDestination, v, pred, dist) {
@@ -259,15 +231,10 @@ function BFS_Algorithm(adj, edgeSource, edgeDestination, v, pred, dist) {
         for (let i = 0; i < adj[u.getID()].length; i++) {
             if (visited[adj[u.getID()][i].getID()] === false) {
                 visited[adj[u.getID()][i].getID()] = true
-                // console.log(`dist[adj[u.getID()][i]] :: ${dist[adj[u.getID()][i]]}`)
-                // console.log(`dist[u.getID()] + 1 :: ${dist[u.getID()] + 1}`)
                 dist[adj[u.getID()][i].getID()] = dist[u.getID()] + 1
 
                 pred[adj[u.getID()][i].getID()] = u
                 queue.push(adj[u.getID()][i])
-                console.log(adj[u.getID()][i])
-                console.log(edgeDestination)
-                console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
                 if (adj[u.getID()][i] == edgeDestination) {
                     return true
                 }
@@ -276,6 +243,45 @@ function BFS_Algorithm(adj, edgeSource, edgeDestination, v, pred, dist) {
     }
     return false
 }
+
+function findDist_DFS(adj, source, final) {
+    let visited = []
+    let prior = []
+    for (let i = 0; i < 53; i++) {
+        visited[i] = false
+        prior[i] = -1
+    }
+    DFS_Algorithm(adj, source, final, source, prior, visited)
+    return getPath(source, final, prior);
+}
+
+function DFS_Algorithm(adj, source, dist, from, prior, visited) {
+    if (visited[source.getID()] === true) {
+
+        return
+    }
+    visited[source.getID()] = true
+    prior[source.getID()] = from
+
+    if (source === dist) {
+        return
+    }
+    for (let i = 0; i < adj[source.getID()].length; i++) {
+        DFS_Algorithm(adj, adj[source.getID()][i], dist, source, prior, visited)
+    }
+}
+
+function getPath(start, finish, prior) {
+    let ans = []
+
+    for (let v = finish; v != start; v = prior[v.getID()]) {
+        ans.push(v)
+    }
+    ans.push(start)
+    ans = ans.reverse()
+    return ans
+}
+
 
 
 
