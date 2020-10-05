@@ -28,6 +28,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let dfs_path = []
     let circleX = 0
     let circleY = 0
+    let timeBFS = 0;
+    let timeDFS = 0;
+    let memoryBFS = 0;
+    let memoryDFS = 0;
 
     const H = 17
     const W = 58
@@ -246,10 +250,10 @@ document.addEventListener('DOMContentLoaded', () => {
         let source = vertexes[pacmanVertex]
         let dest = vertexes[objVertex]
 
-        console.log(findDist_DFS(adj, source, dest));
-        console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
-        console.log(findShortestDist_BFS(adj, source, dest, v))
+        findDist_DFS(adj, source, dest)
+        findShortestDist_BFS(adj, source, dest, v)
         console.log(bfs_path)
+        console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
         console.log(dfs_path)
         console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
     }
@@ -262,6 +266,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function findShortestDist_BFS(adj, s, dest, v) {
+        timeBFS = new Date().getTime()
+        memoryBFS = window.performance.memory.usedJSHeapSize
+        debugger
         let pred = []
         let dist = []
         if (BFS_Algorithm(adj, s, dest, v, pred, dist) === false) {
@@ -277,11 +284,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         let answer = "Shorted path length is " + dist[dest]
         answer += "\n Path is :: "
-        // bfs_path.push(vertexes[pacmanVertex])
         for (let i = path.length - 1; i >= 0; i--) {
             answer += Object.values(path[i]) + " ~ "
             bfs_path.push(path[i])
         }
+        setTimeout(function() {}, 500);
+        let t = new Date().getTime()
+        timeBFS = (t - timeBFS)
+        let m = window.performance.memory.usedJSHeapSize
+        memoryBFS = m - memoryBFS
+        debugger
         return answer
     }
 
@@ -319,6 +331,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function findDist_DFS(adj, source, final) {
+        timeDFS = new Date().getTime()
+        memoryDFS = window.performance.memory.usedJSHeapSize
+        console.log(memoryBFS)
+        debugger
         let visited = []
         let prior = []
         for (let i = 0; i < 53; i++) {
@@ -327,6 +343,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         DFS_Algorithm(adj, source, final, source, prior, visited)
         dfs_path = getPath(source, final, prior)
+        let t = new Date().getTime()
+        timeDFS = t - timeDFS
+        let m = window.performance.memory.usedJSHeapSize
+        memoryDFS = m - memoryDFS
+        debugger
         return dfs_path
     }
 
@@ -373,12 +394,22 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // BTN START
-    //todo moving packman
     document.getElementById("btn-start").addEventListener("click", function (e) {
         let elem = document.getElementById("circle")
         let pos = packmanPosition
         main()
+        let bfs_info_block = document.getElementById('bfs-info')
+        let dfs_info_block = document.getElementById('dfs-info')
+        let bfs_info = "<h1>TIME ::" + `${timeBFS}` + " milliseconds </h1>"
         debugger
+        bfs_info += "<h1>STEPS ::" + `${bfs_path.length - 1}` + " </h1>"
+        bfs_info += "<h1>MEMORY ::" + `${memoryBFS}` + " </h1>"
+        bfs_info_block.innerHTML = bfs_info
+
+        let dfs_info = "<h1>TIME ::" + `${timeDFS}` + " milliseconds </h1>"
+        dfs_info += "<h1>STEPS ::" + `${dfs_path.length - 1}` + " </h1>"
+        dfs_info += "<h1>MEMORY ::" + `${memoryBFS}` + " </h1>"
+        dfs_info_block.innerHTML = dfs_info
         setInterval(frame, 1000)
 
         console.log(bfs_path)
@@ -391,7 +422,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 let pos2 = bfs_path[0]
                 let y = pos2.getY() - pos1.getY()
                 let x = pos2.getX() - pos1.getX()
-                debugger
                 if (y !== 0) {
                     if ((y + 1) * 20 + 102 === circleY) {
                         frame()
