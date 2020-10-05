@@ -201,7 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
         addEdge(adj, vertexes[10], vertexes[49])
         addEdge(adj, vertexes[10], vertexes[11])
         addEdge(adj, vertexes[11], vertexes[12])
-        addEdge(adj, vertexes[12], vertexes[15])
+        addEdge(adj, vertexes[12], vertexes[5])
         addEdge(adj, vertexes[12], vertexes[13])
         addEdge(adj, vertexes[13], vertexes[26])
         addEdge(adj, vertexes[23], vertexes[24])
@@ -216,7 +216,7 @@ document.addEventListener('DOMContentLoaded', () => {
         addEdge(adj, vertexes[31], vertexes[33])
         addEdge(adj, vertexes[33], vertexes[34])
         addEdge(adj, vertexes[34], vertexes[35])
-        addEdge(adj, vertexes[35], vertexes[38])
+        addEdge(adj, vertexes[34], vertexes[38])
         addEdge(adj, vertexes[35], vertexes[36])
         addEdge(adj, vertexes[36], vertexes[37])
         addEdge(adj, vertexes[37], vertexes[38])
@@ -245,6 +245,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let source = vertexes[pacmanVertex]
         let dest = vertexes[objVertex]
+
         console.log(findDist_DFS(adj, source, dest));
         console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
         console.log(findShortestDist_BFS(adj, source, dest, v))
