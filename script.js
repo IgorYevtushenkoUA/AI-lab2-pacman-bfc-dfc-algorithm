@@ -139,7 +139,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function setPackManPosition() {
         pacmanVertex = generateRandomPosition()
-        debugger
     }
 
     function setOBJECTPosition() {
@@ -360,6 +359,13 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById("btn-random").addEventListener("click", function (e) {
         generateRandomPosition()
         drawGameElements()
+        let elem = document.getElementById('circle')
+        let y = (vertexes[pacmanVertex].getY() + 1) * 20
+        let x = (vertexes[pacmanVertex].getX() + 1) * 20
+        let const_header = 80
+        console.log(`x = ${x}\ty = ${y}`)
+        elem.style.top = y + 102 + 'px'
+        elem.style.left = x + 10 + 'px'
     });
 
     // BTN START
