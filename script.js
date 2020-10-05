@@ -26,6 +26,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let objVertex = 0;
     let bfs_path = []
     let dfs_path = []
+    let circleX = 0
+    let circleY = 0
 
     const H = 17
     const W = 58
@@ -163,6 +165,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // generateRandomPosition()
 
     function main() {
+        bfs_path = []
+        dfs_path = []
         let adj = []
         let v = 53
 
@@ -239,19 +243,17 @@ document.addEventListener('DOMContentLoaded', () => {
         addEdge(adj, vertexes[51], vertexes[32])
         addEdge(adj, vertexes[50], vertexes[51])
 
-        let source = vertexes[0]
-        let dest = vertexes[45]
+        let source = vertexes[pacmanVertex]
+        let dest = vertexes[objVertex]
         console.log(findDist_DFS(adj, source, dest));
         console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
         console.log(findShortestDist_BFS(adj, source, dest, v))
-        console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
         console.log(bfs_path)
         console.log(dfs_path)
+        console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
     }
 
     // drawGameElements();
-
-    main()
 
     function addEdge(adj, a, b) {
         adj[a.getID()].push(b)
@@ -274,7 +276,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         let answer = "Shorted path length is " + dist[dest]
         answer += "\n Path is :: "
-
+        // bfs_path.push(vertexes[pacmanVertex])
         for (let i = path.length - 1; i >= 0; i--) {
             answer += Object.values(path[i]) + " ~ "
             bfs_path.push(path[i])
@@ -362,10 +364,11 @@ document.addEventListener('DOMContentLoaded', () => {
         let elem = document.getElementById('circle')
         let y = (vertexes[pacmanVertex].getY() + 1) * 20
         let x = (vertexes[pacmanVertex].getX() + 1) * 20
-        let const_header = 80
-        console.log(`x = ${x}\ty = ${y}`)
-        elem.style.top = y + 102 + 'px'
-        elem.style.left = x + 10 + 'px'
+        let const_header = 80 + 20 + 2
+        circleX = x + 10
+        circleY = y + const_header
+        elem.style.top = circleY + 'px'
+        elem.style.left = circleX + 'px'
     });
 
     // BTN START
@@ -373,15 +376,39 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById("btn-start").addEventListener("click", function (e) {
         let elem = document.getElementById("circle")
         let pos = packmanPosition
-        let id = setInterval(frame, 20)
+        main()
+        debugger
+        setInterval(frame, 1000)
+
+        console.log(bfs_path)
 
         function frame() {
-            if (pos == 350)
+            if (bfs_path.length !== 1) {
+                console.log(`bfs_path.length :: ${bfs_path.length}`)
+                let pos1 = bfs_path.shift()
+                console.log(`bfs_path.length :: ${bfs_path.length}`)
+                let pos2 = bfs_path[0]
+                let y = pos2.getY() - pos1.getY()
+                let x = pos2.getX() - pos1.getX()
+                debugger
+                if (y !== 0) {
+                    if ((y + 1) * 20 + 102 === circleY) {
+                        frame()
+                    } else {
+                        circleY += (y) * 20
+                        elem.style.top = circleY + 'px'
+                    }
+                } else {
+                    if ((x + 1) * 20 + 10 === circleX) {
+                        frame()
+                    } else {
+                        circleX += (x) * 20
+                        elem.style.left = circleX + 'px'
+                    }
+                }
+
+            } else {
                 clearInterval()
-            else {
-                pos++
-                console.log(pos)
-                elem.style.top = pos + "px"
             }
         }
     })
