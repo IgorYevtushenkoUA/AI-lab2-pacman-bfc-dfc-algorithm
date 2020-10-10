@@ -400,15 +400,15 @@ document.addEventListener('DOMContentLoaded', () => {
         main()
         let bfs_info_block = document.getElementById('bfs-info')
         let dfs_info_block = document.getElementById('dfs-info')
-        let bfs_info = "<h1>TIME ::" + `${timeBFS}` + " milliseconds </h1>"
+        let bfs_info = "<h4>TIME ::" + `${timeBFS}` + " milliseconds </h4>"
         debugger
-        bfs_info += "<h1>STEPS ::" + `${bfs_path.length - 1}` + " </h1>"
-        bfs_info += "<h1>MEMORY ::" + `${memoryBFS}` + " </h1>"
+        bfs_info += "<h4>STEPS ::" + `${bfs_path.length - 1}` + " </h4>"
+        bfs_info += "<h4>MEMORY ::" + `${memoryBFS}` + " </h4>"
         bfs_info_block.innerHTML = bfs_info
 
-        let dfs_info = "<h1>TIME ::" + `${timeDFS}` + " milliseconds </h1>"
-        dfs_info += "<h1>STEPS ::" + `${dfs_path.length - 1}` + " </h1>"
-        dfs_info += "<h1>MEMORY ::" + `${memoryBFS}` + " </h1>"
+        let dfs_info = "<h4>TIME ::" + `${timeDFS}` + " milliseconds </h4>"
+        dfs_info += "<h4>STEPS ::" + `${dfs_path.length - 1}` + " </h4>"
+        dfs_info += "<h4>MEMORY ::" + `${memoryBFS}` + " </h4>"
         dfs_info_block.innerHTML = dfs_info
         setInterval(frame, 1000)
 
