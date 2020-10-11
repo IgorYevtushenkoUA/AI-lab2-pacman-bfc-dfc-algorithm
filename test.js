@@ -83,12 +83,9 @@ class VertexInfo {
     setH() {
         return this._h
     }
+
     toString() {
-        return "Parent :: " + this.getParent()  +
-            "\tCurrent :: " + this.getCurrentV() +
-            "\tF :: " + this.getF() +
-            "\tG :: " + this.getG() +
-            "\tH :: " + this.getH() + "\n"
+        return "Parent :: " + this.getParent() + "\tCurrent :: " + this.getCurrentV() + "\tF :: " + this.getF() + "\tG :: " + this.getG() + "\tH :: " + this.getH() + "\n"
     }
 }
 
@@ -251,7 +248,9 @@ function main() {
     console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
     // console.log(findShortestDist_BFS(adj, source, dest, v))
     console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
-    console.log(search_a_algorithm(adj, source, dest))
+    // console.log(search_a_algorithm(adj, source, dest))
+    console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+    console.log(dijkstra_algorithm(adj,source));
     console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
 
 }
@@ -419,15 +418,14 @@ function search_a_algorithm(adj, startV, endV) {
         if (currentVertex.getID() === endV.getID()) {
             let curr = vertexesInfo[currentVertex.getID()]
             let comeFrom = []
+            console.log(vertexesInfo)
+            console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
             while (vertexesInfo[currentVertex.getID()].getCurrentV().getID() !== startV.getID()) {
-                // comeFrom.push(curr)
-                // curr = curr.getParent()
                 comeFrom.push(vertexesInfo[currentVertex.getID()])
                 currentVertex = vertexesInfo[currentVertex.getID()].getParent()
             }
             return comeFrom.reverse()
         }
-        //todo хз чи тут lowest
         openList = openList.splice(0, lowest).concat(openList.splice(1, openList.length))
         closedList.push(currentVertex)
         let neighborsV = adj[currentVertex.getID()]
@@ -458,7 +456,48 @@ function search_a_algorithm(adj, startV, endV) {
         }
     }
     return []
-
 }
 
+//dijkstra
+/**
+ *
+ * @param {[]} adj
+ * @param {Vertex} startV
+ */
+function  dijkstra_algorithm(adj, startV) {
+    let solutions = []
+    solutions[startV.getID()] = []
+    solutions[startV.getID()].dist = 0
 
+    while(true) {
+        let parent = null
+        let nearest = null
+        let dist = Infinity
+
+        for (let n in solutions) {
+            if (!solutions[n])
+                continue
+            let vDist = solutions[n].dist
+            let neighbors = adj[n]
+            console.log(`neighbors :: ${neighbors}\n~~~~~~~~~~~~~\n`)
+            for (let a of neighbors) {
+                if (solutions[a.getID()])
+                    continue
+
+                let d = heuristic(vertexes[n], a) + vDist
+                if (d < dist){
+                    parent = solutions[n]
+                    nearest = a.getID()
+                    dist = d
+                }
+            }
+        }
+        if (dist === Infinity){
+            console.log("break")
+            break;
+        }
+        solutions[nearest] = parent.concat(nearest)
+        solutions[nearest].dist = dist
+    }
+    return solutions
+}
