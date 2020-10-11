@@ -166,7 +166,10 @@ document.addEventListener('DOMContentLoaded', () => {
         squares[objectPosition].classList.add('object')
     }
 
-    // generateRandomPosition()
+    function addEdge(adj, a, b) {
+        adj[a.getID()].push(b)
+        adj[b.getID()].push(a)
+    }
 
     function main() {
         bfs_path = []
@@ -258,12 +261,6 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
     }
 
-    // drawGameElements();
-
-    function addEdge(adj, a, b) {
-        adj[a.getID()].push(b)
-        adj[b.getID()].push(a)
-    }
 
     function findShortestDist_BFS(adj, s, dest, v) {
         timeBFS = new Date().getTime()

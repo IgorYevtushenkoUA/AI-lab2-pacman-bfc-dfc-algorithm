@@ -21,6 +21,75 @@ class Vertex {
     getID() {
         return this._id
     }
+
+    toString() {
+        return `Name ~ ${this.getName()}\tX ~ ${this.getX()}\tY ~ ${this.getY()}\tID ~ ${this.getID()} `
+    }
+}
+
+class VertexInfo {
+    /**
+     *
+     * @param {Vertex} parent
+     * @param {Vertex} currentV
+     * @param {number} f
+     * @param {number} g
+     * @param {number} h
+     */
+    constructor(parent, currentV, f, g, h) {
+        this._parent = parent;
+        this._currentV = currentV;
+        this._f = f;
+        this._g = g;
+        this._h = h;
+    }
+
+    getParent() {
+        return this._parent;
+    }
+
+    setParent(parent) {
+        this._parent = parent;
+    }
+
+    getCurrentV() {
+        return this._currentV;
+    }
+
+    setCurrentV(currentV) {
+        this._currentV = currentV;
+    }
+
+    getF() {
+        return this._f;
+    }
+
+    setF(f) {
+        this._f = f;
+    }
+
+    getG() {
+        return this._g;
+    }
+
+    setG(g) {
+        return this._g = g
+    }
+
+    getH() {
+        return this._h
+    }
+
+    setH() {
+        return this._h
+    }
+    toString() {
+        return "Parent :: " + this.getParent()  +
+            "\tCurrent :: " + this.getCurrentV() +
+            "\tF :: " + this.getF() +
+            "\tG :: " + this.getG() +
+            "\tH :: " + this.getH() + "\n"
+    }
 }
 
 let vertexes = [
@@ -177,11 +246,16 @@ function main() {
     addEdge(adj, vertexes[50], vertexes[51])
 
     let source = vertexes[0]
-    let dest = vertexes[45]
-    console.log(findDist_DFS(adj, source, dest));
+    let dest = vertexes[9]
+    // console.log(findDist_DFS(adj, source, dest));
     console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
-    console.log(findShortestDist_BFS(adj, source, dest, v))
+    // console.log(findShortestDist_BFS(adj, source, dest, v))
+    console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+    console.log(search_a_algorithm(adj, source, dest))
+    console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+
 }
+
 main()
 
 function addEdge(adj, a, b) {
@@ -282,6 +356,109 @@ function getPath(start, finish, prior) {
     return ans
 }
 
+/**
+ * g(n) = cost so far to reach node nn
+ * @returns {number}
+ */
+function g() {
+    return 1
+}
 
+/**
+ * h(n) = estimated cost from nn to goal. This is the heuristic part of the cost function, so it is like a guess.
+ * sqrt( (x1-x2)^2 + (y1-y2)^2 )
+ * @param {Vertex} vertexA
+ * @param {Vertex} vertexB
+ * @returns {number}
+ */
+function heuristic(vertexA, vertexB) {
+    return Math.sqrt(Math.pow(vertexA.getX() - vertexB.getX(), 2) + Math.pow(vertexA.getY() - vertexB.getY(), 2))
+}
+
+/**
+ * total estimated cost of path through node n
+ * @param {Vertex} vertexA
+ * @param {Vertex} vertexB
+ * @returns {number}
+ */
+function pathValueF(vertexA, vertexB) {
+    return heuristic(vertexA, vertexB) + g()
+}
+
+/**
+ * @param {[]} adj
+ * @param {Vertex} startV
+ * @param {Vertex} endV
+ */
+function search_a_algorithm(adj, startV, endV) {
+
+    let openList = [],
+        closedList = [],
+        vertexesInfo = [] // todo change name to cameFrom
+
+    for (let i = 0; i < adj.length; i++) {
+        vertexesInfo[i] = new VertexInfo(null, null, Number.MAX_VALUE, Number.MAX_VALUE, Number.MAX_VALUE)
+    }
+
+    vertexesInfo[startV.getID()].setF(0)
+    vertexesInfo[startV.getID()].setG(0)
+    vertexesInfo[startV.getID()].setH(0)
+    vertexesInfo[startV.getID()].setParent(startV)
+    vertexesInfo[startV.getID()].setCurrentV(startV)
+
+    openList.push(startV)
+
+    while (openList.length !== 0) {
+        let lowest = 0
+        for (let i = 0; i < openList.length; i++) {
+            if (vertexesInfo[openList[i].getID()].getF() === vertexesInfo[lowest].getF()) {
+                lowest = i
+            }
+        }
+        let currentVertex = openList[lowest]
+        if (currentVertex.getID() === endV.getID()) {
+            let curr = vertexesInfo[currentVertex.getID()]
+            let comeFrom = []
+            while (vertexesInfo[currentVertex.getID()].getCurrentV().getID() !== startV.getID()) {
+                // comeFrom.push(curr)
+                // curr = curr.getParent()
+                comeFrom.push(vertexesInfo[currentVertex.getID()])
+                currentVertex = vertexesInfo[currentVertex.getID()].getParent()
+            }
+            return comeFrom.reverse()
+        }
+        //todo хз чи тут lowest
+        openList = openList.splice(0, lowest).concat(openList.splice(1, openList.length))
+        closedList.push(currentVertex)
+        let neighborsV = adj[currentVertex.getID()]
+
+        for (let i = 0; i < neighborsV.length; i++) {
+            let neighborV = neighborsV[i]
+            if (closedList.includes(neighborV))
+                continue
+
+            let gScore = vertexesInfo[currentVertex.getID()].getG() + 1
+            let gScoreIsBest = false
+
+            if (!(openList.includes(neighborV))) {
+                gScoreIsBest = true
+                vertexesInfo[neighborV.getID()].setH(heuristic(neighborV, endV))
+                openList.push(neighborV)
+            } else if (gScore < vertexesInfo[neighborV.getID()].getG()) {
+                gScoreIsBest = true
+            }
+
+            if (gScoreIsBest) {
+
+                vertexesInfo[neighborV.getID()].setParent(currentVertex)
+                vertexesInfo[neighborV.getID()].setCurrentV(neighborV)
+                vertexesInfo[neighborV.getID()].setG(gScore)
+                vertexesInfo[neighborV.getID()].setF(vertexesInfo[neighborV.getID()].getG() + vertexesInfo[neighborV.getID()].getH())
+            }
+        }
+    }
+    return []
+
+}
 
 
