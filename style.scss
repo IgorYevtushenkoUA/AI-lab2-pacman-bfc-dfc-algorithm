@@ -37,6 +37,7 @@ body {
 
 .wall {
   background-color: cornflowerblue;
+  border-radius: 3px ;
 }
 
 .pacman {
@@ -130,7 +131,7 @@ body {
   }
 }
 
-//M O D A L    W I N D O W ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//M O D A L    W I N D O W    S T A T I S T I C ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 .close {
   color: #aaaaaa;
   float: right;
@@ -167,29 +168,37 @@ body {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(3, 1fr);
 
+
     .statistics-title {
       grid-column-start: 1;
       grid-column-end: 3;
       background-color: #8AA9D6;
       display: flex;
+      justify-content: center;
+    }
+    h2 {
+      display: flex;
       flex-direction: row;
       justify-content: center;
+      color: $white;
+      font-family: "Arial Rounded MT Bold";
+      font-weight: bold;
     }
 
     .bfs-block {
-      background-color: #4CAF50;
+      background-color: $orange;
     }
 
     .dfs-block {
-      background-color: #888888;
+      background-color: $red;
     }
 
     .a_star-block {
-      background-color: #f44336;
+      background-color: $green;
     }
 
     .greedy-block {
-      background-color: darkorange;
+      background-color: $blue;
     }
 
   }

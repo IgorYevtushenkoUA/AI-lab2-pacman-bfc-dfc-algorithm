@@ -31,6 +31,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let greedy_path = []
     let path = []
 
+    let newWayCalculate = false
+
     let adj = []
     let source;
     let dest;
@@ -156,11 +158,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function main() {
-        bfs_path = []
-        dfs_path = []
-        a_star_path = []
-        greedy_path = []
-        adj = []
 
         for (let i = 0; i < vertexes.length; i++)
             adj.push([])
@@ -250,12 +247,6 @@ document.addEventListener('DOMContentLoaded', () => {
         elem.style.left = circleX + 'px'
     }
 
-// BTN RANDOM
-    document.getElementById("btn-random").addEventListener("click", function (e) {
-        generateRandomPosition()
-        drawGameElements()
-        drawCircle()
-    });
 
     // BTN START
     // document.getElementById("btn-start").addEventListener("click", function (e) {
@@ -309,9 +300,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // })
 
     function drawMoving(path, elem) {
-        if (path.length !== 1) {
+        if (path.length !== 1 && path.length > 0) {
             let pos1 = path.shift()
             let pos2 = path[0]
+            console.log("pos2 :: " + typeof pos2)
             let y = pos2.getY() - pos1.getY()
             let x = pos2.getX() - pos1.getX()
             if (y !== 0) {
@@ -334,12 +326,73 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function addBFS2Statistics() {
+        let bfs_info_block = document.getElementById('bfs-info')
+        let bfs_info = "<h4>TIME ::" + `${timeBFS}` + " milliseconds </h4>"
+        bfs_info += "<h4>STEPS ::" + `${bfs_path.length - 1}` + " </h4>"
+        bfs_info += "<h4>MEMORY ::" + `${memoryBFS}` + " </h4>"
+        bfs_info_block.innerHTML = bfs_info
+    }
 
+    function addDfs2Statistics() {
+        let dfs_info_block = document.getElementById('dfs-info')
+        let dfs_info = "<h4>TIME ::" + `${timeDFS}` + " milliseconds </h4>"
+        dfs_info += "<h4>STEPS ::" + `${dfs_path.length - 1}` + " </h4>"
+        dfs_info += "<h4>MEMORY ::" + `${memoryBFS}` + " </h4>"
+        dfs_info_block.innerHTML = dfs_info
+    }
+
+    function addAStar2Statistics() {
+        let a_star_info_block = document.getElementById('a_star-info')
+        let a_star_info = "<h4>TIME ::" + `${timeDFS}` + " milliseconds </h4>"
+        a_star_info += "<h4>STEPS ::" + `${a_star_path.length - 1}` + " </h4>"
+        a_star_info += "<h4>MEMORY ::" + `${memoryBFS}` + " </h4>"
+        a_star_info_block.innerHTML = a_star_info
+    }
+
+    function addGreedy2Statistics() {
+        let greedy_info_block = document.getElementById('greedy-info')
+        let greedy_info = "<h4>TIME ::" + `${timeDFS}` + " milliseconds </h4>"
+        greedy_info += "<h4>STEPS ::" + `${greedy_path.length - 1}` + " </h4>"
+        greedy_info += "<h4>MEMORY ::" + `${memoryBFS}` + " </h4>"
+        greedy_info_block.innerHTML = greedy_info
+    }
+
+    function addStatisticsInfo() {
+        addBFS2Statistics()
+        addDfs2Statistics()
+        addAStar2Statistics()
+        addGreedy2Statistics()
+    }
+
+    // BTN RANDOM
+    document.getElementById("btn-random").addEventListener("click", function (e) {
+        bfs_path = []
+        dfs_path = []
+        a_star_path = []
+        greedy_path = []
+        adj = []
+
+        generateRandomPosition()
+        drawGameElements()
+        drawCircle()
+        newWayCalculate = true
+    });
+
+    // BTN START
     document.getElementById("btn-start").addEventListener("click", function (e) {
         console.log(1)
+
         let modal = document.getElementById("modal-window-algorithms")
         main()
         drawCircle()
+        if (newWayCalculate) {
+            bfs_path = findShortestDist_BFS(adj, source, dest, adj.length)
+            dfs_path = findDist_DFS(adj, source, dest)
+            a_star_path = search_a_algorithm(adj, source, dest)
+            greedy_path = dijkstra_algorithm(adj, vertexes, source, dest)
+            addStatisticsInfo()
+        }
 
         modal.style.display = "block"
         let btn_bfs = document.getElementById("btn_bfs")
@@ -350,23 +403,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
         btn_bfs.addEventListener("click", function (e) {
             modal.style.display = "none";
-            bfs_path = findShortestDist_BFS(adj, source, dest, adj.length)
-            path = bfs_path
+            path = [...bfs_path]
         })
         btn_dfs.addEventListener("click", function (e) {
             modal.style.display = "none";
-            dfs_path = findDist_DFS(adj, source, dest)
-            path = dfs_path
+            path = [...dfs_path]
         })
         btn_a_star.addEventListener("click", function (e) {
             modal.style.display = "none";
-            a_star_path = search_a_algorithm(adj, source, dest)
-            path = a_star_path
+            path = [...a_star_path]
         })
         btn_greedy.addEventListener("click", function (e) {
             modal.style.display = "none";
-            greedy_path = dijkstra_algorithm(adj, vertexes, source, dest)
-            path = greedy_path
+            path = [...greedy_path]
         })
 
         window.onclick = function (event) {
@@ -375,29 +424,24 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
+        newWayCalculate = false
 
         setInterval(() => {
             drawMoving(path, elem)
         }, 1000)
-
-
+        console.log(`bfs_path.length :: ${bfs_path.length}`)
     })
 
     //BTN STATISTICS
     document.getElementById("btn-statistics").addEventListener("click", function (e) {
+        let modal = document.getElementById("modal-window")
 
-    })
-    let modal = document.getElementById("modal-window")
-    let btn = document.getElementById("btn-statistics")
-
-    btn.onclick = function () {
         modal.style.display = "block";
-    }
 
-    window.onclick = function (event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
         }
-    }
-
+    })
 })

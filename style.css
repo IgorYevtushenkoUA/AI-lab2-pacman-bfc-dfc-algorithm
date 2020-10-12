@@ -22,6 +22,7 @@ body {
 
 .wall {
   background-color: cornflowerblue;
+  border-radius: 3px;
 }
 
 .pacman {
@@ -143,20 +144,27 @@ body {
   grid-column-end: 3;
   background-color: #8AA9D6;
   display: flex;
-  flex-direction: row;
   justify-content: center;
 }
+.modal-window .statistics-form h2 {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  color: #fff;
+  font-family: "Arial Rounded MT Bold";
+  font-weight: bold;
+}
 .modal-window .statistics-form .bfs-block {
-  background-color: #4CAF50;
+  background-color: #fb7c0c;
 }
 .modal-window .statistics-form .dfs-block {
-  background-color: #888888;
+  background-color: #fb4c3b;
 }
 .modal-window .statistics-form .a_star-block {
-  background-color: #f44336;
+  background-color: #00ce6c;
 }
 .modal-window .statistics-form .greedy-block {
-  background-color: darkorange;
+  background-color: #1c3d50;
 }
 
 .modal-window-algorithms {
