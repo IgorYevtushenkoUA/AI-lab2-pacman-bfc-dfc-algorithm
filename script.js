@@ -24,8 +24,17 @@ document.addEventListener('DOMContentLoaded', () => {
     let objectPosition = 0;
     let pacmanVertex = 0;
     let objVertex = 0;
+
     let bfs_path = []
     let dfs_path = []
+    let a_star_path = []
+    let greedy_path = []
+    let path = []
+
+    let adj = []
+    let source;
+    let dest;
+
     let circleX = 0
     let circleY = 0
     let timeBFS = 0;
@@ -149,10 +158,11 @@ document.addEventListener('DOMContentLoaded', () => {
     function main() {
         bfs_path = []
         dfs_path = []
-        let adj = []
-        let v = 53
+        a_star_path = []
+        greedy_path = []
+        adj = []
 
-        for (let i = 0; i < v; i++)
+        for (let i = 0; i < vertexes.length; i++)
             adj.push([])
         {
             addEdge(adj, vertexes[0], vertexes[1])
@@ -225,29 +235,11 @@ document.addEventListener('DOMContentLoaded', () => {
             addEdge(adj, vertexes[51], vertexes[32])
             addEdge(adj, vertexes[50], vertexes[51])
         }
-        let source = vertexes[pacmanVertex]
-        let dest = vertexes[objVertex]
-
-        dfs_path = findDist_DFS(adj, source, dest)
-        bfs_path = findShortestDist_BFS(adj, source, dest, v)
-
-
-        console.log(bfs_path)
-        console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
-        console.log(dfs_path)
-        console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
-        // console.log(search_a_algorithm(adj, source, dest))
-        // console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
-        // console.log(dijkstra_algorithm(adj, vertexes, source));
-        // console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+        source = vertexes[pacmanVertex]
+        dest = vertexes[objVertex]
     }
 
-    // main()
-
-// BTN RANDOM
-    document.getElementById("btn-random").addEventListener("click", function (e) {
-        generateRandomPosition()
-        drawGameElements()
+    function drawCircle() {
         let elem = document.getElementById('circle')
         let y = (vertexes[pacmanVertex].getY() + 1) * 20
         let x = (vertexes[pacmanVertex].getX() + 1) * 20
@@ -256,58 +248,139 @@ document.addEventListener('DOMContentLoaded', () => {
         circleY = y + const_header
         elem.style.top = circleY + 'px'
         elem.style.left = circleX + 'px'
+    }
+
+// BTN RANDOM
+    document.getElementById("btn-random").addEventListener("click", function (e) {
+        generateRandomPosition()
+        drawGameElements()
+        drawCircle()
     });
 
     // BTN START
-    document.getElementById("btn-start").addEventListener("click", function (e) {
-        let elem = document.getElementById("circle")
-        let pos = packmanPosition
-        main()
-        let bfs_info_block = document.getElementById('bfs-info')
-        let dfs_info_block = document.getElementById('dfs-info')
-        let bfs_info = "<h4>TIME ::" + `${timeBFS}` + " milliseconds </h4>"
-        // debugger
-        bfs_info += "<h4>STEPS ::" + `${bfs_path.length - 1}` + " </h4>"
-        bfs_info += "<h4>MEMORY ::" + `${memoryBFS}` + " </h4>"
-        bfs_info_block.innerHTML = bfs_info
+    // document.getElementById("btn-start").addEventListener("click", function (e) {
+    //     let elem = document.getElementById("circle")
+    //     let pos = packmanPosition
+    //     main()
+    //     let bfs_info_block = document.getElementById('bfs-info')
+    //     let dfs_info_block = document.getElementById('dfs-info')
+    //     let bfs_info = "<h4>TIME ::" + `${timeBFS}` + " milliseconds </h4>"
+    //     // debugger
+    //     bfs_info += "<h4>STEPS ::" + `${bfs_path.length - 1}` + " </h4>"
+    //     bfs_info += "<h4>MEMORY ::" + `${memoryBFS}` + " </h4>"
+    //     bfs_info_block.innerHTML = bfs_info
+    //
+    //     let dfs_info = "<h4>TIME ::" + `${timeDFS}` + " milliseconds </h4>"
+    //     dfs_info += "<h4>STEPS ::" + `${dfs_path.length - 1}` + " </h4>"
+    //     dfs_info += "<h4>MEMORY ::" + `${memoryBFS}` + " </h4>"
+    //     dfs_info_block.innerHTML = dfs_info
+    //     setInterval(() => {
+    //         drawMoving(bfs_path)
+    //     }, 1000)
+    //
+    //     console.log(bfs_path)
+    //     debugger
+    //
+    //     function drawMoving(path) {
+    //         if (path.length !== 1) {
+    //             let pos1 = path.shift()
+    //             let pos2 = path[0]
+    //             let y = pos2.getY() - pos1.getY()
+    //             let x = pos2.getX() - pos1.getX()
+    //             if (y !== 0) {
+    //                 if ((y + 1) * 20 + 102 === circleY) {
+    //                     drawMoving(path)
+    //                 } else {
+    //                     circleY += (y) * 20
+    //                     elem.style.top = circleY + 'px'
+    //                 }
+    //             } else {
+    //                 if ((x + 1) * 20 + 10 === circleX) {
+    //                     drawMoving(path)
+    //                 } else {
+    //                     circleX += (x) * 20
+    //                     elem.style.left = circleX + 'px'
+    //                 }
+    //             }
+    //         } else {
+    //             clearInterval()
+    //         }
+    //     }
+    // })
 
-        let dfs_info = "<h4>TIME ::" + `${timeDFS}` + " milliseconds </h4>"
-        dfs_info += "<h4>STEPS ::" + `${dfs_path.length - 1}` + " </h4>"
-        dfs_info += "<h4>MEMORY ::" + `${memoryBFS}` + " </h4>"
-        dfs_info_block.innerHTML = dfs_info
-        setInterval(frame, 1000)
-
-        console.log(bfs_path)
-        debugger
-
-        function frame() {
-            if (bfs_path.length !== 1) {
-                console.log(`bfs_path.length :: ${bfs_path.length}`)
-                let pos1 = bfs_path.shift()
-                console.log(`bfs_path.length :: ${bfs_path.length}`)
-                let pos2 = bfs_path[0]
-                let y = pos2.getY() - pos1.getY()
-                let x = pos2.getX() - pos1.getX()
-                if (y !== 0) {
-                    if ((y + 1) * 20 + 102 === circleY) {
-                        frame()
-                    } else {
-                        circleY += (y) * 20
-                        elem.style.top = circleY + 'px'
-                    }
+    function drawMoving(path, elem) {
+        if (path.length !== 1) {
+            let pos1 = path.shift()
+            let pos2 = path[0]
+            let y = pos2.getY() - pos1.getY()
+            let x = pos2.getX() - pos1.getX()
+            if (y !== 0) {
+                if ((y + 1) * 20 + 102 === circleY) {
+                    drawMoving(path)
                 } else {
-                    if ((x + 1) * 20 + 10 === circleX) {
-                        frame()
-                    } else {
-                        circleX += (x) * 20
-                        elem.style.left = circleX + 'px'
-                    }
+                    circleY += (y) * 20
+                    elem.style.top = circleY + 'px'
                 }
-
             } else {
-                clearInterval()
+                if ((x + 1) * 20 + 10 === circleX) {
+                    drawMoving(path)
+                } else {
+                    circleX += (x) * 20
+                    elem.style.left = circleX + 'px'
+                }
+            }
+        } else {
+            clearInterval()
+        }
+    }
+
+
+    document.getElementById("btn-start").addEventListener("click", function (e) {
+        console.log(1)
+        let modal = document.getElementById("modal-window-algorithms")
+        main()
+        drawCircle()
+
+        modal.style.display = "block"
+        let btn_bfs = document.getElementById("btn_bfs")
+        let btn_dfs = document.getElementById("btn_dfs")
+        let btn_a_star = document.getElementById("btn_a-star")
+        let btn_greedy = document.getElementById("btn_greedy")
+        let elem = document.getElementById("circle")
+
+        btn_bfs.addEventListener("click", function (e) {
+            modal.style.display = "none";
+            bfs_path = findShortestDist_BFS(adj, source, dest, adj.length)
+            path = bfs_path
+        })
+        btn_dfs.addEventListener("click", function (e) {
+            modal.style.display = "none";
+            dfs_path = findDist_DFS(adj, source, dest)
+            path = dfs_path
+        })
+        btn_a_star.addEventListener("click", function (e) {
+            modal.style.display = "none";
+            a_star_path = search_a_algorithm(adj, source, dest)
+            path = a_star_path
+        })
+        btn_greedy.addEventListener("click", function (e) {
+            modal.style.display = "none";
+            greedy_path = dijkstra_algorithm(adj, vertexes, source, dest)
+            path = greedy_path
+        })
+
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
             }
         }
+
+
+        setInterval(() => {
+            drawMoving(path, elem)
+        }, 1000)
+
+
     })
 
     //BTN STATISTICS

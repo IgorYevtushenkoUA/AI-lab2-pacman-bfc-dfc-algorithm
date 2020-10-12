@@ -1,5 +1,3 @@
-// let VI = require('./../graph/vertex_info.js')
-
 /**
  * h(n) = estimated cost from nn to goal. This is the heuristic part of the cost function, so it is like a guess.
  * sqrt( (x1-x2)^2 + (y1-y2)^2 )
@@ -24,7 +22,7 @@ function search_a_algorithm  (adj, startV, endV) {
         vertexesInfo = [] // todo change name to cameFrom
 
     for (let i = 0; i < adj.length; i++) {
-        vertexesInfo[i] = new VI.VertexInfo(null, null, Number.MAX_VALUE, Number.MAX_VALUE, Number.MAX_VALUE)
+        vertexesInfo[i] = new VertexInfo(null, null, Number.MAX_VALUE, Number.MAX_VALUE, Number.MAX_VALUE)
     }
 
     vertexesInfo[startV.getID()].setF(0)
@@ -46,12 +44,12 @@ function search_a_algorithm  (adj, startV, endV) {
         if (currentVertex.getID() === endV.getID()) {
             let curr = vertexesInfo[currentVertex.getID()]
             let comeFrom = []
-            console.log(vertexesInfo)
-            console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
             while (vertexesInfo[currentVertex.getID()].getCurrentV().getID() !== startV.getID()) {
-                comeFrom.push(vertexesInfo[currentVertex.getID()])
+                comeFrom.push(vertexesInfo[currentVertex.getID()].getCurrentV())
                 currentVertex = vertexesInfo[currentVertex.getID()].getParent()
             }
+            comeFrom.push(startV)
+
             return comeFrom.reverse()
         }
         openList = openList.splice(0, lowest).concat(openList.splice(1, openList.length))
@@ -85,5 +83,4 @@ function search_a_algorithm  (adj, startV, endV) {
     }
     return []
 }
-
 

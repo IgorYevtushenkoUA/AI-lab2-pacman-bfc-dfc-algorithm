@@ -14,7 +14,7 @@ function _heuristic(vertexA, vertexB) {
  * @param {[]} vertexes
  * @param {Vertex} startV
  */
-function dijkstra_algorithm (adj,vertexes, startV) {
+function dijkstra_algorithm(adj, vertexes, startV, dest) {
     let solutions = []
     solutions[startV.getID()] = []
     solutions[startV.getID()].dist = 0
@@ -47,7 +47,10 @@ function dijkstra_algorithm (adj,vertexes, startV) {
         solutions[nearest] = parent.concat(nearest)
         solutions[nearest].dist = dist
     }
-    return solutions
+    let path = [startV]
+    for (let i of solutions[dest.getID()]) {
+        path.push(vertexes[i])
+    }
+    return path
 }
-
 
