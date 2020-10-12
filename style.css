@@ -146,16 +146,16 @@ body {
   flex-direction: row;
   justify-content: center;
 }
-.modal-window .statistics-form .bfs-info {
+.modal-window .statistics-form .bfs-block {
   background-color: #4CAF50;
 }
-.modal-window .statistics-form .dfs-info {
+.modal-window .statistics-form .dfs-block {
   background-color: #888888;
 }
-.modal-window .statistics-form .a-info {
+.modal-window .statistics-form .a_star-block {
   background-color: #f44336;
 }
-.modal-window .statistics-form .greedy-info {
+.modal-window .statistics-form .greedy-block {
   background-color: darkorange;
 }
 

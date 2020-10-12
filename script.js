@@ -51,31 +51,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     drawMap()
 
-    class Vertex {
-        constructor(name, x, y, id) {
-            this._name = name
-            this._x = x
-            this._y = y
-            this._id = id
-        }
-
-        getName() {
-            return this._name
-        }
-
-        getX() {
-            return this._x
-        }
-
-        getY() {
-            return this._y
-        }
-
-        getID() {
-            return this._id
-        }
-    }
-
     let vertexes = [
         //A
         new Vertex("A0", 0, 0, 0),
@@ -179,202 +154,95 @@ document.addEventListener('DOMContentLoaded', () => {
 
         for (let i = 0; i < v; i++)
             adj.push([])
-
-        addEdge(adj, vertexes[0], vertexes[1])
-        addEdge(adj, vertexes[0], vertexes[3])
-        addEdge(adj, vertexes[1], vertexes[2])
-        addEdge(adj, vertexes[3], vertexes[4])
-        addEdge(adj, vertexes[3], vertexes[2])
-        addEdge(adj, vertexes[4], vertexes[5])
-        addEdge(adj, vertexes[4], vertexes[10])
-        addEdge(adj, vertexes[2], vertexes[18])
-        addEdge(adj, vertexes[18], vertexes[17])
-        addEdge(adj, vertexes[18], vertexes[19])
-        addEdge(adj, vertexes[19], vertexes[20])
-        addEdge(adj, vertexes[20], vertexes[21])
-        addEdge(adj, vertexes[21], vertexes[17])
-        addEdge(adj, vertexes[17], vertexes[16])
-        addEdge(adj, vertexes[16], vertexes[15])
-        addEdge(adj, vertexes[16], vertexes[6])
-        addEdge(adj, vertexes[5], vertexes[6])
-        addEdge(adj, vertexes[6], vertexes[7])
-        addEdge(adj, vertexes[7], vertexes[8])
-        addEdge(adj, vertexes[8], vertexes[9])
-        addEdge(adj, vertexes[15], vertexes[14])
-        addEdge(adj, vertexes[14], vertexes[23])
-        addEdge(adj, vertexes[14], vertexes[13])
-        addEdge(adj, vertexes[21], vertexes[22])
-        addEdge(adj, vertexes[22], vertexes[15])
-        addEdge(adj, vertexes[10], vertexes[49])
-        addEdge(adj, vertexes[10], vertexes[11])
-        addEdge(adj, vertexes[11], vertexes[12])
-        addEdge(adj, vertexes[12], vertexes[5])
-        addEdge(adj, vertexes[12], vertexes[13])
-        addEdge(adj, vertexes[13], vertexes[26])
-        addEdge(adj, vertexes[23], vertexes[24])
-        addEdge(adj, vertexes[24], vertexes[25])
-        addEdge(adj, vertexes[25], vertexes[26])
-        addEdge(adj, vertexes[25], vertexes[27])
-        addEdge(adj, vertexes[27], vertexes[28])
-        addEdge(adj, vertexes[28], vertexes[29])
-        addEdge(adj, vertexes[29], vertexes[30])
-        addEdge(adj, vertexes[30], vertexes[31])
-        addEdge(adj, vertexes[32], vertexes[31])
-        addEdge(adj, vertexes[31], vertexes[33])
-        addEdge(adj, vertexes[33], vertexes[34])
-        addEdge(adj, vertexes[34], vertexes[35])
-        addEdge(adj, vertexes[34], vertexes[38])
-        addEdge(adj, vertexes[35], vertexes[36])
-        addEdge(adj, vertexes[36], vertexes[37])
-        addEdge(adj, vertexes[37], vertexes[38])
-        addEdge(adj, vertexes[37], vertexes[47])
-        addEdge(adj, vertexes[47], vertexes[48])
-        addEdge(adj, vertexes[47], vertexes[45])
-        addEdge(adj, vertexes[45], vertexes[44])
-        addEdge(adj, vertexes[45], vertexes[46])
-        addEdge(adj, vertexes[44], vertexes[43])
-        addEdge(adj, vertexes[43], vertexes[42])
-        addEdge(adj, vertexes[42], vertexes[46])
-        addEdge(adj, vertexes[41], vertexes[42])
-        addEdge(adj, vertexes[49], vertexes[41])
-        addEdge(adj, vertexes[41], vertexes[40])
-        addEdge(adj, vertexes[40], vertexes[46])
-        addEdge(adj, vertexes[40], vertexes[39])
-        addEdge(adj, vertexes[39], vertexes[38])
-        addEdge(adj, vertexes[39], vertexes[32])
-        addEdge(adj, vertexes[11], vertexes[50])
-        addEdge(adj, vertexes[50], vertexes[49])
-        addEdge(adj, vertexes[11], vertexes[52])
-        addEdge(adj, vertexes[52], vertexes[26])
-        addEdge(adj, vertexes[52], vertexes[51])
-        addEdge(adj, vertexes[51], vertexes[32])
-        addEdge(adj, vertexes[50], vertexes[51])
-
+        {
+            addEdge(adj, vertexes[0], vertexes[1])
+            addEdge(adj, vertexes[0], vertexes[3])
+            addEdge(adj, vertexes[1], vertexes[2])
+            addEdge(adj, vertexes[3], vertexes[4])
+            addEdge(adj, vertexes[3], vertexes[2])
+            addEdge(adj, vertexes[4], vertexes[5])
+            addEdge(adj, vertexes[4], vertexes[10])
+            addEdge(adj, vertexes[2], vertexes[18])
+            addEdge(adj, vertexes[18], vertexes[17])
+            addEdge(adj, vertexes[18], vertexes[19])
+            addEdge(adj, vertexes[19], vertexes[20])
+            addEdge(adj, vertexes[20], vertexes[21])
+            addEdge(adj, vertexes[21], vertexes[17])
+            addEdge(adj, vertexes[17], vertexes[16])
+            addEdge(adj, vertexes[16], vertexes[15])
+            addEdge(adj, vertexes[16], vertexes[6])
+            addEdge(adj, vertexes[5], vertexes[6])
+            addEdge(adj, vertexes[6], vertexes[7])
+            addEdge(adj, vertexes[7], vertexes[8])
+            addEdge(adj, vertexes[8], vertexes[9])
+            addEdge(adj, vertexes[15], vertexes[14])
+            addEdge(adj, vertexes[14], vertexes[23])
+            addEdge(adj, vertexes[14], vertexes[13])
+            addEdge(adj, vertexes[21], vertexes[22])
+            addEdge(adj, vertexes[22], vertexes[15])
+            addEdge(adj, vertexes[10], vertexes[49])
+            addEdge(adj, vertexes[10], vertexes[11])
+            addEdge(adj, vertexes[11], vertexes[12])
+            addEdge(adj, vertexes[12], vertexes[5])
+            addEdge(adj, vertexes[12], vertexes[13])
+            addEdge(adj, vertexes[13], vertexes[26])
+            addEdge(adj, vertexes[23], vertexes[24])
+            addEdge(adj, vertexes[24], vertexes[25])
+            addEdge(adj, vertexes[25], vertexes[26])
+            addEdge(adj, vertexes[25], vertexes[27])
+            addEdge(adj, vertexes[27], vertexes[28])
+            addEdge(adj, vertexes[28], vertexes[29])
+            addEdge(adj, vertexes[29], vertexes[30])
+            addEdge(adj, vertexes[30], vertexes[31])
+            addEdge(adj, vertexes[32], vertexes[31])
+            addEdge(adj, vertexes[31], vertexes[33])
+            addEdge(adj, vertexes[33], vertexes[34])
+            addEdge(adj, vertexes[34], vertexes[35])
+            addEdge(adj, vertexes[34], vertexes[38])
+            addEdge(adj, vertexes[35], vertexes[36])
+            addEdge(adj, vertexes[36], vertexes[37])
+            addEdge(adj, vertexes[37], vertexes[38])
+            addEdge(adj, vertexes[37], vertexes[47])
+            addEdge(adj, vertexes[47], vertexes[48])
+            addEdge(adj, vertexes[47], vertexes[45])
+            addEdge(adj, vertexes[45], vertexes[44])
+            addEdge(adj, vertexes[45], vertexes[46])
+            addEdge(adj, vertexes[44], vertexes[43])
+            addEdge(adj, vertexes[43], vertexes[42])
+            addEdge(adj, vertexes[42], vertexes[46])
+            addEdge(adj, vertexes[41], vertexes[42])
+            addEdge(adj, vertexes[49], vertexes[41])
+            addEdge(adj, vertexes[41], vertexes[40])
+            addEdge(adj, vertexes[40], vertexes[46])
+            addEdge(adj, vertexes[40], vertexes[39])
+            addEdge(adj, vertexes[39], vertexes[38])
+            addEdge(adj, vertexes[39], vertexes[32])
+            addEdge(adj, vertexes[11], vertexes[50])
+            addEdge(adj, vertexes[50], vertexes[49])
+            addEdge(adj, vertexes[11], vertexes[52])
+            addEdge(adj, vertexes[52], vertexes[26])
+            addEdge(adj, vertexes[52], vertexes[51])
+            addEdge(adj, vertexes[51], vertexes[32])
+            addEdge(adj, vertexes[50], vertexes[51])
+        }
         let source = vertexes[pacmanVertex]
         let dest = vertexes[objVertex]
 
-        findDist_DFS(adj, source, dest)
-        findShortestDist_BFS(adj, source, dest, v)
+        dfs_path = findDist_DFS(adj, source, dest)
+        bfs_path = findShortestDist_BFS(adj, source, dest, v)
+
+
         console.log(bfs_path)
         console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
         console.log(dfs_path)
         console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+        // console.log(search_a_algorithm(adj, source, dest))
+        // console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+        // console.log(dijkstra_algorithm(adj, vertexes, source));
+        // console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
     }
 
-
-    function findShortestDist_BFS(adj, s, dest, v) {
-        timeBFS = new Date().getTime()
-        memoryBFS = window.performance.memory.usedJSHeapSize
-        debugger
-        let pred = []
-        let dist = []
-        if (BFS_Algorithm(adj, s, dest, v, pred, dist) === false) {
-            return "can not find the path"
-        }
-        let path = []
-        // ползать
-        let crawl = dest
-        path.push(crawl)
-        while (pred[crawl.getID()] !== -1) {
-            path.push(pred[crawl.getID()])
-            crawl = pred[crawl.getID()]
-        }
-        let answer = "Shorted path length is " + dist[dest]
-        answer += "\n Path is :: "
-        for (let i = path.length - 1; i >= 0; i--) {
-            answer += Object.values(path[i]) + " ~ "
-            bfs_path.push(path[i])
-        }
-        setTimeout(function() {}, 500);
-        let t = new Date().getTime()
-        timeBFS = (t - timeBFS)
-        let m = window.performance.memory.usedJSHeapSize
-        memoryBFS = m - memoryBFS
-        debugger
-        return answer
-    }
-
-    function BFS_Algorithm(adj, edgeSource, edgeDestination, v, pred, dist) {
-        let queue = []
-        let visited = []
-
-        for (let i = 0; i < v; i++) {
-            visited[i] = false
-            dist[i] = Number.MAX_SAFE_INTEGER
-            pred[i] = -1
-        }
-
-        visited[edgeSource.getID()] = true
-        dist[edgeSource.getID()] = 0
-        queue.push(edgeSource)
-
-
-        while (queue.length > 0) {
-            let u = queue.shift()
-            for (let i = 0; i < adj[u.getID()].length; i++) {
-                if (visited[adj[u.getID()][i].getID()] === false) {
-                    visited[adj[u.getID()][i].getID()] = true
-                    dist[adj[u.getID()][i].getID()] = dist[u.getID()] + 1
-
-                    pred[adj[u.getID()][i].getID()] = u
-                    queue.push(adj[u.getID()][i])
-                    if (adj[u.getID()][i] == edgeDestination) {
-                        return true
-                    }
-                }
-            }
-        }
-        return false
-    }
-
-    function findDist_DFS(adj, source, final) {
-        timeDFS = new Date().getTime()
-        memoryDFS = window.performance.memory.usedJSHeapSize
-        console.log(memoryBFS)
-        debugger
-        let visited = []
-        let prior = []
-        for (let i = 0; i < 53; i++) {
-            visited[i] = false
-            prior[i] = -1
-        }
-        DFS_Algorithm(adj, source, final, source, prior, visited)
-        dfs_path = getPath(source, final, prior)
-        let t = new Date().getTime()
-        timeDFS = t - timeDFS
-        let m = window.performance.memory.usedJSHeapSize
-        memoryDFS = m - memoryDFS
-        debugger
-        return dfs_path
-    }
-
-    function DFS_Algorithm(adj, source, dist, from, prior, visited) {
-        if (visited[source.getID()] === true) {
-
-            return
-        }
-        visited[source.getID()] = true
-        prior[source.getID()] = from
-
-        if (source === dist) {
-            return
-        }
-        for (let i = 0; i < adj[source.getID()].length; i++) {
-            DFS_Algorithm(adj, adj[source.getID()][i], dist, source, prior, visited)
-        }
-    }
-
-    function getPath(start, finish, prior) {
-        let ans = []
-
-        for (let v = finish; v != start; v = prior[v.getID()]) {
-            ans.push(v)
-        }
-        ans.push(start)
-        ans = ans.reverse()
-        return ans
-    }
-
+    // main()
 
 // BTN RANDOM
     document.getElementById("btn-random").addEventListener("click", function (e) {
@@ -398,7 +266,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let bfs_info_block = document.getElementById('bfs-info')
         let dfs_info_block = document.getElementById('dfs-info')
         let bfs_info = "<h4>TIME ::" + `${timeBFS}` + " milliseconds </h4>"
-        debugger
+        // debugger
         bfs_info += "<h4>STEPS ::" + `${bfs_path.length - 1}` + " </h4>"
         bfs_info += "<h4>MEMORY ::" + `${memoryBFS}` + " </h4>"
         bfs_info_block.innerHTML = bfs_info
@@ -410,6 +278,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setInterval(frame, 1000)
 
         console.log(bfs_path)
+        debugger
 
         function frame() {
             if (bfs_path.length !== 1) {
